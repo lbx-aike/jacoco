@@ -1,5 +1,6 @@
 package com.demo.web.controller;
 
+import com.demo.common.domain.Phone;
 import com.demo.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +19,13 @@ public class HelloWordController {
 
     @GetMapping(value = "/api/hello")
     public String hello(){
+        Phone phone = new Phone("红米");
+        System.out.println(phone.getName());
         String result1 = commonService.test("hello");
         String result2 = commonService.test("hello");
         String result3 = commonService.testFinal("hello");
         System.out.println("env:" + env);
+
         return "第一次调用"+result1 + ", 第二次调用" + result2;
     }
 
