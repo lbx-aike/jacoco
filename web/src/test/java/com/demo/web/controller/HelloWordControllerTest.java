@@ -26,7 +26,6 @@ import java.util.Calendar;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("这是一个demo")
 public class HelloWordControllerTest {
 
@@ -38,14 +37,14 @@ public class HelloWordControllerTest {
 //    CommonService commonService;
 
     @BeforeAll
-    public void init() {
+    static void init() {
         System.out.println("---- 执行@BeforeAll ----");
-        MockitoAnnotations.openMocks(this);
-        ReflectionTestUtils.setField(helloWordController, "env", "test");
     }
 
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        ReflectionTestUtils.setField(helloWordController, "env", "test");
         System.out.println("---- 执行@BeforeEach ----");
     }
 
@@ -112,7 +111,7 @@ public class HelloWordControllerTest {
     }
 
     @AfterAll
-    public void afterAll() {
+    static void afterAll() {
         System.out.println("---- 执行@AfterAll ----");
     }
 
