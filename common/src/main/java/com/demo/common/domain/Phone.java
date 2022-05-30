@@ -6,6 +6,7 @@ import lombok.Data;
 public class Phone {
 
     private String name;
+    private String cpu;
 
     public Phone(String name) {
         this.name = name;

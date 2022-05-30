@@ -2,12 +2,15 @@ package com.demo.web.controller;
 
 import com.demo.common.domain.Phone;
 import com.demo.service.CommonService;
+import com.demo.service.PhoneService;
+import com.demo.service.impl.PhoneServiceImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +21,7 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -33,8 +37,8 @@ public class HelloWordControllerTest {
     HelloWordController helloWordController;
     @Mock
     CommonService commonService;
-//    @Spy
-//    CommonService commonService;
+    @Mock
+    PhoneServiceImpl phoneService;
 
     @BeforeAll
     static void init() {
@@ -53,16 +57,14 @@ public class HelloWordControllerTest {
     @ValueSource(strings = {"1","2"})
     public void mockPublicTest(int paramInt) {
         when(commonService.test(Mockito.anyString())).thenReturn(String.valueOf(paramInt), "test");
-        lenient().when(commonService.testFinal(Mockito.anyString())).thenReturn("test");
         System.out.println(helloWordController.hello());
     }
 
     @Test
     @DisplayName("mock public final")
     public void mockPublicFinalTest() {
-        lenient().when(commonService.test(Mockito.anyString())).thenReturn("test");
         when(commonService.testFinal(Mockito.anyString())).thenReturn("test");
-        System.out.println(helloWordController.hello());
+        assertEquals(helloWordController.mockFinal(), "test");
     }
 
     @Test
@@ -70,33 +72,35 @@ public class HelloWordControllerTest {
     @DisplayName("mock static")
     public void mockStaticTest() {
         Calendar test = Calendar.getInstance();
-        test.set(2022, Calendar.JUNE, 1);
-        try (MockedStatic<Calendar> cal = mockStatic(Calendar.class)) {
+        test.set(2022, 0, 1, 0, 0, 0);
+        System.out.println(test.getTime());
+        try (MockedStatic cal = mockStatic(Calendar.class)) {
             cal.when(Calendar::getInstance).thenReturn(test);
             System.out.println(Calendar.getInstance().getTime());
         }
+        System.out.println(Calendar.getInstance().getTime());
     }
 
     @Test
     @DisplayName("mock construction")
     public void mockConstructionTest () {
-        System.out.println(new Phone("小米").getName());
+        assertEquals(new Phone("小米").getName(), "小米");
         try (MockedConstruction<Phone> mocked = mockConstructionWithAnswer(Phone.class, invocationOnMock -> {
             if (invocationOnMock.getMethod().equals(Phone.class.getMethod("getName"))) {
                 return "苹果";
             }
             return null;
         })) {
-            System.out.println(new Phone("华为").getName());
+            assertEquals(new Phone("华为").getName(), "苹果");
         }
-        System.out.println(new Phone("VIVO").getName());
+        assertEquals(new Phone("红米").getName(), "红米");
     }
 
     @Test
     @DisplayName("mock throw exception")
     public void mockThrowException() {
         try {
-            when(commonService.test(Mockito.anyString())).thenThrow(new RuntimeException("exception"));
+            when(commonService.test(anyString())).thenThrow(new RuntimeException("exception"));
             helloWordController.hello();
             fail();
         } catch (Exception e) {
@@ -104,6 +108,12 @@ public class HelloWordControllerTest {
         }
     }
 
+    @Test
+    @DisplayName("mock call real method")
+    public void mockCallRealMethod() {
+        when(phoneService.createPhone(anyString())).thenCallRealMethod();
+        System.out.println(helloWordController.callRealMethod().getName());
+    }
 
     @AfterEach
     public void afterEach() {

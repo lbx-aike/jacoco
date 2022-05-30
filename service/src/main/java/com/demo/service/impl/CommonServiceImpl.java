@@ -1,13 +1,17 @@
 package com.demo.service.impl;
 
-import com.demo.common.utils.DateUtils;
 import com.demo.service.CommonService;
+import com.demo.service.PhoneService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import javax.annotation.Resource;
+import java.util.Random;
 
 @Service
 public class CommonServiceImpl implements CommonService {
+
+    @Resource
+    private PhoneService phoneService;
 
     @Override
     public String test(String param) {
@@ -15,13 +19,14 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public String mockStaticCase() {
-        Date now = new Date();
-        return DateUtils.dateFormat(now);
+    public final String testFinal(String param) {
+        return "commonService testFinal method, param:"+param;
     }
 
     @Override
-    public final String testFinal(String param) {
-        return "commonService test method, param:"+param;
+    public String getCpu() {
+        Random r = new Random();
+        System.out.println("执行真实方法");
+        return "高通骁龙"+r.nextInt(10);
     }
 }
