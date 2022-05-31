@@ -23,6 +23,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Phone createPhone(String name) {
         Phone phone = new Phone(name);
+        commonService.testVoid(name);
         return phone;
     }
 }

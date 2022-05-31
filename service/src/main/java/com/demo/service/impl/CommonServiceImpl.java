@@ -26,7 +26,12 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public String getCpu() {
         Random r = new Random();
-        System.out.println("执行真实方法");
+        System.out.println("========真实方法被执行========");
         return "高通骁龙"+r.nextInt(10);
+    }
+
+    @Override
+    public void testVoid(String name) {
+        System.out.println("啥也没干");
     }
 }

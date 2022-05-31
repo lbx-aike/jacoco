@@ -6,4 +6,6 @@ public interface CommonService {
     String testFinal(String param);
 
     String getCpu();
+
+    void testVoid(String name);
 }
