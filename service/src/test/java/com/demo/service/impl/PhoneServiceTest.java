@@ -30,12 +30,20 @@ class PhoneServiceTest {
 
     @InjectMocks
     PhoneService phoneService = new PhoneServiceImpl();
-    @Spy
+    @Spy//适用局部mock
     CommonService commonService = new CommonServiceImpl();
 
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    @DisplayName("执行真实方法，返回真实的值")
+    public void spyTest0(TestInfo testInfo) {
+        System.out.println(testInfo.getDisplayName());
+        Phone phone = phoneService.getPhoneByName("小米");
+        assertTrue(phone.getCpu().contains("高通骁龙"));
     }
 
     @Test
