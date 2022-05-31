@@ -52,13 +52,13 @@ public class HelloWordControllerTest {
         System.out.println("---- 执行@BeforeEach ----");
     }
 
-    @ParameterizedTest(name = "第{index}次测试，传入参数:{0}")
+
+    @Test
     @EnabledOnOs({OS.WINDOWS, OS.MAC})
     @DisplayName("mock public")
-    @ValueSource(strings = {"1","2"})
-    public void mockPublicTest(int paramInt) {
+    public void mockPublicTest() {
         //多次调用会依次返回预设好的值，超过次数，会返回最后一次预设的值
-        when(commonService.test(Mockito.anyString())).thenReturn(String.valueOf(paramInt), "test");
+        when(commonService.test(Mockito.anyString())).thenReturn("1", "2");
         System.out.println(helloWordController.hello());
     }
 
