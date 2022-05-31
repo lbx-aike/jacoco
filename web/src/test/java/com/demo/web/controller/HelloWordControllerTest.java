@@ -2,7 +2,6 @@ package com.demo.web.controller;
 
 import com.demo.common.domain.Phone;
 import com.demo.service.CommonService;
-import com.demo.service.PhoneService;
 import com.demo.service.impl.PhoneServiceImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -10,8 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,11 +20,12 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,10 +52,12 @@ public class HelloWordControllerTest {
         System.out.println("---- 执行@BeforeEach ----");
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "第{index}次测试，传入参数:{0}")
+    @EnabledOnOs({OS.WINDOWS, OS.MAC})
     @DisplayName("mock public")
     @ValueSource(strings = {"1","2"})
     public void mockPublicTest(int paramInt) {
+        //多次调用会依次返回预设好的值，超过次数，会返回最后一次预设的值
         when(commonService.test(Mockito.anyString())).thenReturn(String.valueOf(paramInt), "test");
         System.out.println(helloWordController.hello());
     }
@@ -68,7 +70,6 @@ public class HelloWordControllerTest {
     }
 
     @Test
-//    @EnabledOnOs({OS.LINUX, OS.MAC})
     @DisplayName("mock static")
     public void mockStaticTest() {
         Calendar test = Calendar.getInstance();
@@ -113,6 +114,31 @@ public class HelloWordControllerTest {
     public void mockCallRealMethod() {
         when(phoneService.createPhone(anyString())).thenCallRealMethod();
         System.out.println(helloWordController.callRealMethod().getName());
+    }
+
+    @Test
+    @DisplayName("test then answer")
+    public void testThenAnswer() {
+        List mockedList = mock(List.class);
+        when(mockedList.get(anyInt())).thenAnswer((Answer<String>) invocation -> {
+            Object[] args = invocation.getArguments();
+            Integer index = (Integer) args[0];
+            if (index == 0) {
+                return "foo";
+            } else if (index == 1) {
+                return "bar";
+            } else {
+                throw new IndexOutOfBoundsException("数组越界");
+            }
+        });
+
+        assertEquals("foo", mockedList.get(0));
+        assertEquals("bar", mockedList.get(1));
+        try {
+            mockedList.get(20);
+        } catch (Exception e) {
+            assertEquals("数组越界", e.getMessage());
+        }
     }
 
     @AfterEach

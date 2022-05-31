@@ -31,7 +31,7 @@ public class HelloWordController {
 
         System.out.println("env:" + env);
 
-        return "第一次调用"+result1 + ", 第二次调用" + result2;
+        return "第一次调用"+result1 + ", 第二次调用" + result2 + ", 第三次调用" + result3;
     }
 
     @GetMapping(value = "/api/mockFinal")
