@@ -2,6 +2,8 @@ package com.demo.service.impl;
 
 import com.demo.service.CommonService;
 import com.demo.service.PhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -10,7 +12,8 @@ import java.util.Random;
 @Service
 public class CommonServiceImpl implements CommonService {
 
-    @Resource
+    @Autowired
+    @Lazy
     private PhoneService phoneService;
 
     @Override

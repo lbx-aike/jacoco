@@ -3,6 +3,8 @@ package com.demo.service.impl;
 import com.demo.common.domain.Phone;
 import com.demo.service.CommonService;
 import com.demo.service.PhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -10,7 +12,8 @@ import javax.annotation.Resource;
 @Service
 public class PhoneServiceImpl implements PhoneService {
 
-    @Resource
+    @Autowired
+    @Lazy
     private CommonService commonService;
 
     @Override

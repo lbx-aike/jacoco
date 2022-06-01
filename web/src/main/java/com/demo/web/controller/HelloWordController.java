@@ -5,18 +5,23 @@ import com.demo.service.CommonService;
 import com.demo.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 import java.util.Calendar;
 
 @RestController
 public class HelloWordController {
 
-    @Resource
+    @Autowired
+    @Lazy
     private CommonService commonService;
-    @Resource
+    @Autowired
+    @Lazy
     private PhoneService phoneService;
     @Value("${env}")
     private String env;
@@ -45,8 +50,8 @@ public class HelloWordController {
         return commonService.callRealMethod();
     }
 
-    @GetMapping(value = "/api/test")
-    public String test(int num){
+    @GetMapping(value = "/api/test/{num}")
+    public String test(@PathVariable("num") Integer num){
         int sum = 0;
         if (num > 1) {
             sum += 1;
