@@ -2,6 +2,8 @@ package com.demo.web.controller;
 
 import com.demo.common.domain.Phone;
 import com.demo.service.CommonService;
+import com.demo.service.PhoneService;
+import com.demo.service.impl.CommonServiceImpl;
 import com.demo.service.impl.PhoneServiceImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -36,9 +38,7 @@ public class HelloWordControllerTest {
     @InjectMocks
     HelloWordController helloWordController;
     @Mock
-    CommonService commonService;
-    @Mock
-    PhoneServiceImpl phoneService;
+    CommonServiceImpl commonService = new CommonServiceImpl();
 
     @BeforeAll
     static void init() {
@@ -112,8 +112,8 @@ public class HelloWordControllerTest {
     @Test
     @DisplayName("mock call real method")
     public void mockCallRealMethod() {
-        when(phoneService.createPhone(anyString())).thenCallRealMethod();
-        System.out.println(helloWordController.callRealMethod().getName());
+        when(commonService.callRealMethod()).thenCallRealMethod();
+        assertTrue(helloWordController.callRealMethod() < 11);
     }
 
     @Test

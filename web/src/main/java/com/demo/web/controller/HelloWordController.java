@@ -41,7 +41,16 @@ public class HelloWordController {
     }
 
     @GetMapping(value = "/api/callRealMethod")
-    public Phone callRealMethod(){
-        return phoneService.createPhone("hello");
+    public int callRealMethod(){
+        return commonService.callRealMethod();
+    }
+
+    @GetMapping(value = "/api/test")
+    public String test(int num){
+        int sum = 0;
+        if (num > 1) {
+            sum += 1;
+        }
+        return commonService.test("test"+sum);
     }
 }

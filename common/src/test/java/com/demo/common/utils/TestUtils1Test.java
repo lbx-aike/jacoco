@@ -11,9 +11,9 @@ class TestUtils1Test {
         Assertions.assertEquals(0, result);
     }
 
-    @Test
-    void testCountCharNumInStr2() {
-        int result = TestUtils1.countCharNumInStr("aa", 'a');
-        Assertions.assertEquals(2, result);
-    }
+//    @Test
+//    void testCountCharNumInStr2() {
+//        int result = TestUtils1.countCharNumInStr("aa", 'a');
+//        Assertions.assertEquals(2, result);
+//    }
 }

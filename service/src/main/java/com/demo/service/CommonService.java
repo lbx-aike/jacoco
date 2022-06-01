@@ -8,4 +8,6 @@ public interface CommonService {
     String getCpu();
 
     void testVoid(String name);
+
+    int callRealMethod();
 }

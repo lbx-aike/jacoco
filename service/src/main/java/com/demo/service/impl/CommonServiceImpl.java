@@ -34,4 +34,11 @@ public class CommonServiceImpl implements CommonService {
     public void testVoid(String name) {
         System.out.println("啥也没干");
     }
+
+    @Override
+    public int callRealMethod() {
+        Random r = new Random();
+        System.out.println("========真实方法被执行========");
+        return r.nextInt(10);
+    }
 }
