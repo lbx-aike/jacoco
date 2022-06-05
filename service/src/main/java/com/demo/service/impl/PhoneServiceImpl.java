@@ -12,8 +12,7 @@ import javax.annotation.Resource;
 @Service
 public class PhoneServiceImpl implements PhoneService {
 
-    @Autowired
-    @Lazy
+    @Resource
     private CommonService commonService;
 
     @Override

@@ -12,8 +12,7 @@ import java.util.Random;
 @Service
 public class CommonServiceImpl implements CommonService {
 
-    @Autowired
-    @Lazy
+    @Resource
     private PhoneService phoneService;
 
     @Override

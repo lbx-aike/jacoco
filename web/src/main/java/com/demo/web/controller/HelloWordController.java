@@ -17,11 +17,9 @@ import java.util.Calendar;
 @RestController
 public class HelloWordController {
 
-    @Autowired
-    @Lazy
+    @Resource
     private CommonService commonService;
-    @Autowired
-    @Lazy
+    @Resource
     private PhoneService phoneService;
     @Value("${env}")
     private String env;
