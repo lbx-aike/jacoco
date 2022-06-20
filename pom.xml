@@ -13,6 +13,7 @@
         <module>dao</module>
         <module>service</module>
         <module>web</module>
+        <module>report</module>
     </modules>
 
     <parent>
@@ -23,7 +24,8 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <maven.jacoco.skip>true</maven.jacoco.skip>
+        <maven.jacoco.skip>false</maven.jacoco.skip>
+        <jacoco.version>0.8.8</jacoco.version>
     </properties>
     <dependencies>
 <!--        <dependency>-->
@@ -135,7 +137,13 @@
             <scope>test</scope>
         </dependency>
         <!-- junit5 + mockito4.x end-->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <classifier>runtime</classifier>
+            <version>${jacoco.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 
 </project>
