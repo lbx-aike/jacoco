@@ -137,13 +137,32 @@
             <scope>test</scope>
         </dependency>
         <!-- junit5 + mockito4.x end-->
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>org.jacoco.agent</artifactId>
-            <classifier>runtime</classifier>
-            <version>${jacoco.version}</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--        离线模式-->
+<!--            <groupId>org.jacoco</groupId>-->
+<!--            <artifactId>org.jacoco.agent</artifactId>-->
+<!--            <classifier>runtime</classifier>-->
+<!--            <version>${jacoco.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+<!--                    代理模式-->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -21,13 +21,6 @@
             <artifactId>service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>org.jacoco.agent</artifactId>
-            <classifier>runtime</classifier>
-            <version>${jacoco.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -53,21 +46,21 @@
                     <skip>${maven.jacoco.skip}</skip>
                 </configuration>
                 <executions>
-                    <!-- 编译期间对class文件插桩 -->
-                    <execution>
-                        <id>default-instrument</id>
-                        <goals>
-                            <goal>instrument</goal>
-                        </goals>
-                    </execution>
-                    <!-- 对插桩的class文件进行还原 -->
-                    <execution>
-                        <id>default-restore-instrumented-classes</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>restore-instrumented-classes</goal>
-                        </goals>
-                    </execution>
+<!--                    &lt;!&ndash; 编译期间对class文件插桩 &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>default-instrument</id>-->
+<!--                        <goals>-->
+<!--                            <goal>instrument</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    &lt;!&ndash; 对插桩的class文件进行还原 &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <id>default-restore-instrumented-classes</id>-->
+<!--                        <phase>test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>restore-instrumented-classes</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
                     <execution>
                         <id>default-report</id>
                         <phase>test</phase>

@@ -39,21 +39,6 @@
                     <skip>${maven.jacoco.skip}</skip>
                 </configuration>
                 <executions>
-                    <!-- 编译期间对class文件插桩 -->
-                    <execution>
-                        <id>default-instrument</id>
-                        <goals>
-                            <goal>instrument</goal>
-                        </goals>
-                    </execution>
-                    <!-- 对插桩的class文件进行还原 -->
-                    <execution>
-                        <id>default-restore-instrumented-classes</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>restore-instrumented-classes</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>default-report</id>
                         <phase>test</phase>
