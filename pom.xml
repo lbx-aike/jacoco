@@ -153,6 +153,10 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+                <configuration>
+                    <!-- mvn -Dmaven.jacoco.skip=true 打包阶段跳过jacoco阶段 -->
+                    <skip>${maven.jacoco.skip}</skip>
+                </configuration>
                 <executions>
 <!--                    代理模式-->
                     <execution>
